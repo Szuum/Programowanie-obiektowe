@@ -3,7 +3,16 @@ package agh.ics.oop;
 public class World {
     public static void main(String[] args) {
         System.out.println("System wystartował");
-        Direction t[] = {Direction.BACKWARD, Direction.FORWARD, Direction.BACKWARD, Direction.LEFT, Direction.RIGHT};
+        int n=args.length;
+        Direction[] t = new Direction[n];
+        for (int i=0 ; i<n ; i++) {
+            t[i] = switch (args[i]) {
+                case "f" -> Direction.FORWARD;
+                case "b" -> Direction.BACKWARD;
+                case "r" -> Direction.RIGHT;
+                case "l" -> Direction.LEFT;
+            };
+        }
         run(t);
         System.out.println("System zakończył działanie");
     }
