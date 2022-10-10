@@ -3,9 +3,8 @@ package agh.ics.oop;
 public class World {
     public static void main(String[] args) {
         System.out.println("System wystartował");
-        int n=args.length;
-        Direction[] t = new Direction[n];
-        for (int i=0 ; i<n ; i++) {
+        Direction[] t = new Direction[args.length];
+        for (int i=0 ; i<args.length ; i++) {
             t[i] = switch (args[i]) {
                 case "f" -> Direction.FORWARD;
                 case "b" -> Direction.BACKWARD;
@@ -17,8 +16,7 @@ public class World {
         System.out.println("System zakończył działanie");
     }
     static void run(Direction tab[]) {
-        int n=tab.length;
-        for (int i=0; i<n; i++) {
+        for (int i=0; i<tab.length; i++) {
             Direction argument = tab[i];
             switch (argument) {
                 case FORWARD:
