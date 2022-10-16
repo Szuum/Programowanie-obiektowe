@@ -7,16 +7,17 @@ public class Vector2dTest {
 
     @Test
     public void equalsTest() {
-        Vector2d Vector1 = new Vector2d(4, 5);
-        Vector2d Vector2 = new Vector2d(4, 5);
-        Vector2d Vector3 = new Vector2d(4, 6);
-        Vector2d Vector4 = new Vector2d(-4, 5);
+        Vector2d vector1 = new Vector2d(4, 5);
+        Vector2d vector2 = new Vector2d(4, 5);
+        Vector2d vector3 = new Vector2d(4, 6);
+        Vector2d vector4 = new Vector2d(-4, 5);
         MapDirection direction = MapDirection.EAST;
 
-        Assertions.assertTrue(Vector1.equals(Vector2));
-        Assertions.assertFalse(Vector1.equals(Vector3));
-        Assertions.assertFalse(Vector1.equals(Vector4));
-        Assertions.assertFalse(Vector1.equals(direction));
+        Assertions.assertTrue(vector1.equals(vector2));
+        Assertions.assertFalse(vector1.equals(vector3));
+        Assertions.assertFalse(vector1.equals(vector4));
+        Assertions.assertTrue(vector1.equals(vector1));
+        Assertions.assertFalse(vector1.equals(direction));
     }
 
     @Test
