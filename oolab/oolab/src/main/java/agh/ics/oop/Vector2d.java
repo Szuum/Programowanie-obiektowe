@@ -8,7 +8,7 @@ public class Vector2d {
         this.y = y;
     }
     public final int x;
-     public final int y;
+    public final int y;
 
     public String toString() {
         return ("(" + (String.valueOf(this.x)) + "," + String.valueOf(this.y) + ")");
