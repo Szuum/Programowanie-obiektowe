@@ -1,15 +1,30 @@
 package agh.ics.oop;
 
 public class Animal {
+
     private MapDirection orient = MapDirection.NORTH;
     private Vector2d position = new Vector2d(2, 2);
+    public IWorldMap map;
 
+    public Animal(IWorldMap map) {
+        this.map=map;
+    }
+
+    public Animal(IWorldMap map, Vector2d initialPosition) {
+        this.map=map;
+        this.position = initialPosition;
+    }
     public String toString() {
-        String inf = "Pozycja: ";
-        inf = inf + this.position.toString();
-        inf = inf + ", orientacja: ";
-        inf = inf + this.orient.toString();
-        return inf;
+        switch (this.orient) {
+            case NORTH:
+                return "N";
+            case EAST:
+                return "E";
+            case SOUTH:
+                return "S";
+            default: // case WEST
+                return "W";
+        }
     }
 
     public boolean isAt(Vector2d position) {
@@ -25,65 +40,23 @@ public class Animal {
                 this.orient = this.orient.next();
                 break;
             case FORWARD:
-                boolean b = false;
-                switch(this.orient) {
-                    case NORTH:
-                        if (this.position.y < 4) {
-                            b = true;
-                        }
-                        break;
-                    case EAST:
-                        if (this.position.x < 4) {
-                            b = true;
-                        }
-                        break;
-                    case SOUTH:
-                        if (this.position.y > 0) {
-                            b = true;
-                        }
-                        break;
-                    default:
-                        if (this.position.x > 0) {
-                            b = true;
-                        }
-                        break;
-                }
-                if (b) {
-                    this.position = this.position.add(this.orient.toUnitVector());
+                if (map.canMoveTo(this.position.add(this.orient.toUnitVector()))) {
+                    position = this.position.add(this.orient.toUnitVector());
                 }
                 break;
-            default:
-                boolean tmp = false;
-                switch(this.orient) {
-                    case NORTH:
-                        if (this.position.y > 0) {
-                            tmp = true;
-                        }
-                        break;
-                    case EAST:
-                        if (this.position.x > 0) {
-                            tmp = true;
-                        }
-                        break;
-                    case SOUTH:
-                        if (this.position.y < 4) {
-                            tmp = true;
-                        }
-                        break;
-                    default:
-                        if (this.position.x < 4) {
-                            tmp = true;
-                        }
-                        break;
+            default: // case BACKWARD
+                if (map.canMoveTo(this.position.subtract(this.orient.toUnitVector()))) {
+                    position = this.position.subtract(this.orient.toUnitVector());
                 }
-            if (tmp) {
-                this.position = this.position.add(this.orient.toUnitVector().opposite());
-            }
-            break;
+                break;
         }
     }
 
-    public boolean isFacing(MapDirection orient) {
+    boolean isFacing(MapDirection orient) {
         return this.orient.equals(orient);
+    }
+
+    Vector2d getPosition() {
+        return this.position;
     }
 }
