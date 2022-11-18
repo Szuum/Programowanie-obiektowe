@@ -18,8 +18,8 @@ public class SimulationEngine implements IEngine {
 
     public int addAnimals() {
         int cnt = 0;
-        for (int i = 0 ; i < positions.length ; i++) {
-            Animal animal = new Animal(map, positions[i]);
+        for (Vector2d position : positions) {
+            Animal animal = new Animal(map, position);
             if (map.place(animal)) {
                 animals.add(animal);
                 cnt++;

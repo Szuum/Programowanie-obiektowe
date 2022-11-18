@@ -9,6 +9,7 @@ public class RectangularMapTest {
     public void placeTest() {
         IWorldMap map = new RectangularMap(10, 5);
         map.place(new Animal(map, new Vector2d(2, 2)));
+        Assertions.assertFalse(map.place(new Animal(map, new Vector2d(100, 100))));
         Assertions.assertTrue(map.place(new Animal(map, new Vector2d(2, 4))));
         Assertions.assertFalse(map.place(new Animal(map, new Vector2d(2, 2))));
     }
@@ -38,7 +39,7 @@ public class RectangularMapTest {
         IWorldMap map = new RectangularMap(10, 5);
         Animal animal = new Animal(map, new Vector2d(2, 2));
         map.place(animal);
-        Assertions.assertEquals(map.objectAt(new Vector2d(2, 3)), null);
+        Assertions.assertNull(map.objectAt(new Vector2d(2, 3)));
         Assertions.assertEquals(map.objectAt(new Vector2d(2, 2 )), animal);
     }
 }

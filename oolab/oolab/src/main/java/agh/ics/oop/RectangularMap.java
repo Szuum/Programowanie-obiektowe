@@ -4,8 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class RectangularMap extends AbstractWorldMap{
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
 
     public RectangularMap(int width, int height) {
         this.width = width;
@@ -13,23 +13,10 @@ public class RectangularMap extends AbstractWorldMap{
     }
     @Override
     public boolean canMoveTo(Vector2d position) {
-        if (isOccupied(position)) {
+        if (!super.canMoveTo(position)) {
             return false;
         }
-        if (position.precedes(new Vector2d(width, height)) && position.follows(new Vector2d(0, 0))) {
-            return true;
-        }
-        return false;
-    }
-
-    public Object objectAt(Vector2d position) {
-        for (int i = 0; i < animals.size(); i++) {
-            Animal animal = animals.get(i);
-            if (position.equals(animal.getPosition())) {
-                return animal;
-            }
-        }
-        return null;
+        return (position.precedes(new Vector2d(width, height)) && position.follows(new Vector2d(0, 0)));
     }
 
     @Override

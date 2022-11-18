@@ -1,10 +1,14 @@
 package agh.ics.oop;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Animal {
 
     private MapDirection orient = MapDirection.NORTH;
     private Vector2d position = new Vector2d(2, 2);
     public IWorldMap map;
+    private List<IPositionChangeObserver> observers = new ArrayList<>();
 
     public Animal(IWorldMap map) {
         this.map=map;
@@ -15,16 +19,12 @@ public class Animal {
         this.position = initialPosition;
     }
     public String toString() {
-        switch (this.orient) {
-            case NORTH:
-                return "N";
-            case EAST:
-                return "E";
-            case SOUTH:
-                return "S";
-            default: // case WEST
-                return "W";
-        }
+        return switch (this.orient) {
+            case NORTH -> "N";
+            case EAST -> "E";
+            case SOUTH -> "S";
+            default -> "W"; // case WEST
+        };
     }
 
     public boolean isAt(Vector2d position) {
@@ -41,11 +41,13 @@ public class Animal {
                 break;
             case FORWARD:
                 if (map.canMoveTo(this.position.add(this.orient.toUnitVector()))) {
+                    positionChanged(this.position.add(this.orient.toUnitVector()));
                     position = this.position.add(this.orient.toUnitVector());
                 }
                 break;
             default: // case BACKWARD
                 if (map.canMoveTo(this.position.subtract(this.orient.toUnitVector()))) {
+                    positionChanged(this.position.subtract(this.orient.toUnitVector()));
                     position = this.position.subtract(this.orient.toUnitVector());
                 }
                 break;
@@ -58,5 +60,19 @@ public class Animal {
 
     Vector2d getPosition() {
         return this.position;
+    }
+
+    protected void addObserver(IPositionChangeObserver observer) {
+        observers.add(observer);
+    }
+
+    protected void removeObserver(IPositionChangeObserver observer) {
+        observers.remove(observer);
+    }
+
+    protected void positionChanged(Vector2d newPosition) {
+        for (IPositionChangeObserver observer : observers) {
+            observer.positionChanged(this.position, newPosition);
+        }
     }
 }
