@@ -6,8 +6,9 @@ import java.util.List;
 
 public class GrassField extends AbstractWorldMap {
 
-    public int number;
+    private int number;
     protected HashMap<Vector2d, Grass> grasses = new HashMap<>();
+    private MapBoundary boundary = new MapBoundary();
 
     public GrassField(int number) {
         this.number = number;
@@ -18,6 +19,7 @@ public class GrassField extends AbstractWorldMap {
             if (!grassOnPlace(position)) {
                 grasses.put(position, new Grass(position));
                 i++;
+                boundary.addPosition(position);
             }
         }
     }
@@ -34,25 +36,29 @@ public class GrassField extends AbstractWorldMap {
         return grasses.get(position);
     }
 
-    protected Vector2d getLowerLeft() {
-        Vector2d lowerLeft = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
-        for (Vector2d key : animals.keySet()) {
-            lowerLeft = lowerLeft.lowerLeft(key);
+    @Override
+    public boolean place(Animal animal) {
+        if (super.place(animal)) {
+            boundary.addPosition(animal.getPosition());
+            return true;
         }
-        for (Vector2d key : grasses.keySet()) {
-            lowerLeft = lowerLeft.lowerLeft(key);
-        }
-        return lowerLeft;
+        return false;
     }
 
-    protected Vector2d getUpperRight() {
-        Vector2d upperRight = new Vector2d(Integer.MIN_VALUE, Integer.MIN_VALUE);
-        for (Vector2d key : animals.keySet()) {
-            upperRight = upperRight.upperRight(key);
+    public Vector2d getLowerLeft() {
+        return boundary.getLowerLeft();
+    }
+
+    public Vector2d getUpperRight() {
+        return boundary.getUpperRight();
+    }
+
+    @Override
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
+        super.positionChanged(oldPosition, newPosition);
+        boundary.positionChanged(oldPosition, newPosition);
+        if (grasses.containsKey(oldPosition)) {
+            boundary.addPosition(oldPosition);
         }
-        for (Vector2d key : grasses.keySet()) {
-            upperRight = upperRight.upperRight(key);
-        }
-        return upperRight;
     }
 }

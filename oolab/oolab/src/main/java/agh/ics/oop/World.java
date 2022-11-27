@@ -1,6 +1,8 @@
 package agh.ics.oop;
 
 import java.util.Arrays;
+import agh.ics.oop.gui.App;
+import javafx.application.Application;
 
 public class World {
 
@@ -49,40 +51,22 @@ public class World {
     }
     public static void main(String[] args) {
 
-//        Vector2d position1 = new Vector2d(1,2);
-//        System.out.println(position1);
-//        Vector2d position2 = new Vector2d(-2,1);
-//        System.out.println(position2);
-//        System.out.println(position1.add(position2));
-
-        System.out.println("System wystartował");
-
-//        Animal animal = new Animal();
-//        animal.move(MoveDirection.RIGHT);
-//        animal.move(MoveDirection.FORWARD);
-//        animal.move(MoveDirection.FORWARD);
-//        animal.move(MoveDirection.FORWARD);
-//        System.out.println(animal.toString());
+//        try {
+//            System.out.println("System wystartował");
 //
-//        Direction[] kierunki = new Direction[args.length];
-//        Direction[] directions = convert(args, kierunki);
-//        run(directions);
+//            MoveDirection[] directions = new OptionsParser().parse(args);
+//            IWorldMap map = new GrassField(10);
+//            Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4)};
+//            IEngine engine = new SimulationEngine(directions, map, positions);
+//            engine.run();
+//            System.out.println(map.toString());
 //
+//            Application.launch(App.class, args);
 //
-//        OptionsParser toParse = new OptionsParser();
-//        MoveDirection[] direction = toParse.parse(args);
-//        for (int i = 0 ; i < direction.length ; i++) {
-//            animal.move(direction[i]);
-//            System.out.println(animal.toString());
+//            System.out.println("System zakończył działanie");
+//        } catch(IllegalArgumentException exception) {
+//            System.out.println(exception);
 //        }
-
-        MoveDirection[] directions = new OptionsParser().parse(args);
-        IWorldMap map = new GrassField(10);
-        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
-        IEngine engine = new SimulationEngine(directions, map, positions);
-        engine.run();
-        System.out.println(map.toString());
-
-        System.out.println("System zakończył działanie");
+        Application.launch(App.class, args);
     }
 }

@@ -22,7 +22,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
             animal.addObserver(this);
             return true;
         }
-        return false;
+        throw new IllegalArgumentException("Position " + position  + " has been already occupied");
     }
 
     @Override
@@ -32,13 +32,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
 
     @Override
     public Object objectAt(Vector2d position) {
-
         return animals.get(position);
-
-//        if (animals.containsKey(position)) {
-//            return animals.get(position);
-//        }
-//        return null;
     }
 
     @Override
@@ -48,9 +42,9 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
     }
 
 
-    protected abstract Vector2d getLowerLeft();
+    public abstract Vector2d getLowerLeft();
 
-    protected abstract Vector2d getUpperRight();
+    public abstract Vector2d getUpperRight();
 
     @Override
     public String toString() {

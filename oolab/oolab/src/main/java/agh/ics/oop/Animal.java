@@ -40,15 +40,19 @@ public class Animal {
                 this.orient = this.orient.next();
                 break;
             case FORWARD:
-                if (map.canMoveTo(this.position.add(this.orient.toUnitVector()))) {
-                    positionChanged(this.position.add(this.orient.toUnitVector()));
-                    position = this.position.add(this.orient.toUnitVector());
+                Vector2d possibleForwardPosition = this.position.add(this.orient.toUnitVector());
+                if (map.canMoveTo(possibleForwardPosition)) {
+                    Vector2d oldPosition1 = this.position;
+                    position = possibleForwardPosition;
+                    positionChanged(oldPosition1);
                 }
                 break;
             default: // case BACKWARD
-                if (map.canMoveTo(this.position.subtract(this.orient.toUnitVector()))) {
-                    positionChanged(this.position.subtract(this.orient.toUnitVector()));
-                    position = this.position.subtract(this.orient.toUnitVector());
+                Vector2d possibleBackwardPosition = this.position.subtract(this.orient.toUnitVector());
+                if (map.canMoveTo(possibleBackwardPosition)) {
+                    Vector2d oldPosition2 = this.position;
+                    position = possibleBackwardPosition;
+                    positionChanged(oldPosition2);
                 }
                 break;
         }
@@ -70,9 +74,9 @@ public class Animal {
         observers.remove(observer);
     }
 
-    protected void positionChanged(Vector2d newPosition) {
+    private void positionChanged(Vector2d oldPosition) {
         for (IPositionChangeObserver observer : observers) {
-            observer.positionChanged(this.position, newPosition);
+            observer.positionChanged(oldPosition, this.position);
         }
     }
 }
