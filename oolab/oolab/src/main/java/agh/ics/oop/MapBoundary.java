@@ -4,7 +4,7 @@ import java.util.*;
 
 public class MapBoundary implements IPositionChangeObserver{
 
-    public SortedSet<Vector2d> XSort = new TreeSet<>((v1, v2) -> {
+    private SortedSet<Vector2d> XSort = new TreeSet<>((v1, v2) -> {
         if (v1.x > v2.x) {
             return 1;
         }
@@ -16,7 +16,7 @@ public class MapBoundary implements IPositionChangeObserver{
         }
     });
 
-    public SortedSet<Vector2d> YSort = new TreeSet<>((v1, v2) -> {
+    private SortedSet<Vector2d> YSort = new TreeSet<>((v1, v2) -> {
         if (v1.y > v2.y) {
             return 1;
         }

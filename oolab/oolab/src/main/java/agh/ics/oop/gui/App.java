@@ -1,37 +1,53 @@
 package agh.ics.oop.gui;
 
-import javafx.application.Application;
 import agh.ics.oop.*;
+import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.HPos;
+import javafx.geometry.VPos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-public class App extends Application {
+public class App extends Application implements IPositionChangeObserver {
 
     GridPane gridPane = new GridPane();
+    AbstractWorldMap map;
+    SimulationEngine engine;
+    Thread engineThread;
 
     public void start(Stage primaryStage) {
 
         try {
 
             MoveDirection[] directions = new OptionsParser().parse(getParameters().getRaw().toArray(new String[0]));
-            AbstractWorldMap map = new GrassField(10);
+            map = new GrassField(10);
             Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4)};
-            IEngine engine = new SimulationEngine(directions, map, positions);
-            engine.run();
-            System.out.println(map.toString());
-            fillMap(map);
+            SimulationEngine engine = new SimulationEngine(directions, map, positions);
+            Thread engineThread = new Thread(engine);
 
         } catch(IllegalArgumentException exception) {
-            System.out.println(exception);
+            exception.printStackTrace();
         }
 
+        TextField textField = new TextField();
+        Button start = new Button("Start");
+        start.setOnAction(event -> {
+            String[] text = textField.getText();
+            OptionsParser parse = new OptionsParser();
+            MoveDirection[] moves = parse.parse(text);
+            engine.setDiractions(moves);
+            engineThread = new Thread(engine);
+            engineThread.start();
+        });
+        VBox button = new VBox(textField, start);
+        HBox buttonWithMap = new HBox(button, gridPane);
         this.gridPane.setGridLinesVisible(true);
-        Scene scene = new Scene(this.gridPane, 400, 400);
+        fillMap(map);
+        Scene scene = new Scene(buttonWithMap, 400, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -45,13 +61,13 @@ public class App extends Application {
         GridPane.setHalignment(label, HPos.CENTER);
 
         for (int i = 1 ; i < upperRight.x - lowerLeft.x + 2 ; i++) {
-            label = new Label(Integer.toString(i));
+            label = new Label(Integer.toString(i - 1));
             this.gridPane.add(label, i, 0, 1, 1);
             GridPane.setHalignment(label, HPos.CENTER);
         }
 
         for (int i = 1 ; i < upperRight.y - lowerLeft.y + 2 ; i++) {
-            label = new Label(Integer.toString(upperRight.y - lowerLeft.y - i));
+            label = new Label(Integer.toString(upperRight.y - lowerLeft.y - i + 1));
             this.gridPane.add(label, 0, i, 1, 1);
             GridPane.setHalignment(label, HPos.CENTER);
         }
@@ -86,4 +102,11 @@ public class App extends Application {
         }
     }
 
+    @Override
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
+        Platform.runLater(() -> {
+                gridPane.getChildren().clear();
+                fillMap(map);
+        });
+    }
 }
