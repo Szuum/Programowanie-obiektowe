@@ -2,7 +2,7 @@ package agh.ics.oop;
 
 public class Grass implements IMapElement {
 
-    public Vector2d position;
+    protected Vector2d position;
 
     public Grass(Vector2d position) {
         this.position = position;
@@ -18,6 +18,8 @@ public class Grass implements IMapElement {
 
     @Override
     public String getImagePath() {
-        return "src/main/resources/grass.png";
+        return "C:\\Users\\user\\Documents\\GitHub\\Programowanie-obiektowe\\oolab\\oolab\\src\\main\\resources\\grass.png";
     }
+
+
 }

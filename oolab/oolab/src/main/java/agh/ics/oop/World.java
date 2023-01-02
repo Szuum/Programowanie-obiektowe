@@ -1,7 +1,7 @@
 package agh.ics.oop;
 
 import java.util.Arrays;
-import agh.ics.oop.gui.App;
+//import agh.ics.oop.gui.App;
 import javafx.application.Application;
 
 public class World {
@@ -67,6 +67,6 @@ public class World {
 //        } catch(IllegalArgumentException exception) {
 //            System.out.println(exception);
 //        }
-        Application.launch(App.class, args);
+        Simulation.launch(Simulation.class, args);
     }
 }
