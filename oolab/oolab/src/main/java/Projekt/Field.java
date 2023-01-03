@@ -1,26 +1,22 @@
 package Projekt;
 
-import javafx.collections.transformation.SortedList;
-
 import java.util.ArrayList;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 public class Field {
 
-    protected ArrayList<Animal> animalsArray = new ArrayList<>();
+    protected ArrayList<Animal> animalsArray = new ArrayList<>(); // lista przechowująca zwierzęta na danym polu
 
-    protected Animal getStrongestAnimal() {
+    protected Animal getStrongestAnimal() { // najsilniejsze zwierzę na polu
         sort();
         return animalsArray.get(animalsArray.size() - 1);
     }
 
-    protected Animal getSecondAnimal() {
+    protected Animal getSecondAnimal() { // drugie najsilniejsze zwierzę (do rozmnażania)
         sort();
         return animalsArray.get(animalsArray.size() - 2);
     }
 
-    protected void sort() {
+    protected void sort() { // sortowanie według zadanych kryteriów
         animalsArray.sort((a1, a2) -> {
             if (a1 == a2) {
                 return 0;

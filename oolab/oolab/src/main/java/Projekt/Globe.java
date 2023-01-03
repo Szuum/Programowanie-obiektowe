@@ -11,16 +11,16 @@ public class Globe extends AbstractMap {
     }
 
     @Override
-    protected Vector2d newPosition(Animal animal, Vector2d newPosition) {
+    protected Vector2d newPosition(Animal animal, Vector2d newPosition) { // znajdowanie nowej pozycji zwierzaka
         if (newPosition.follows(new Vector2d(0, 0)) && newPosition.precedes(new Vector2d(width - 1, height - 1))) {
-            return newPosition;
+            return newPosition; // pozycja znajduje się na mapie
         }
         int x = (newPosition.x + width)%width;
         int y;
-        if (newPosition.y >= 0 && newPosition.y < height) {
+        if (newPosition.y >= 0 && newPosition.y < height) { // zwierzę przechodzi na drugą stronę świata
             y = newPosition.y;
         }
-        else {
+        else { // zwierzę odbija się bieguna
             y = animal.position.y;
             animal.oppositeOrient();
         }
