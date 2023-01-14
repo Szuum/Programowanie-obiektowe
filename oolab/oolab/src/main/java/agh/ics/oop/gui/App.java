@@ -1,4 +1,4 @@
-//package agh.ics.oop.gui;
+//package agh.ics.oop.gui; // ten plik nie wydaje się przydatny
 //
 //import agh.ics.oop.*;
 //import javafx.application.Application;

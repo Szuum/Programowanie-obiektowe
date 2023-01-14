@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
-public class Simulation implements Runnable{
+public class Simulation implements Runnable {
     protected final int width;
     protected final int height;
     protected final int startGrass;
@@ -48,18 +48,17 @@ public class Simulation implements Runnable{
         this.app = app;
         this.growVariant = growVariant;
 
-        for (int i = 0 ; i < startAnimals ; i++) { // dodanie początkowej ilości zwirząt
-            int x = (int) (Math.random()*width);
-            int y = (int) (Math.random()*height);
+        for (int i = 0; i < startAnimals; i++) { // dodanie początkowej ilości zwirząt
+            int x = (int) (Math.random() * width);
+            int y = (int) (Math.random() * height);
             Animal animal = new Animal(new Vector2d(x, y), startEnergy, genomSize, mutationVariant, nextGenVariant, minMutation,
                     maxMutation, energyToMultiplication, lostEnergy, mapVariant, this);
             mapVariant.place(animal);
             animals.add(animal);
             if (genoms.containsKey(animal.genom)) { // zwierzę już jest na wylosowanej pozycji
                 int cnt = genoms.remove(animal.genom);
-                genoms.put(animal.genom, cnt+1);
-            }
-            else { // na wylosowanej pozycji nie ma zwierzęcia
+                genoms.put(animal.genom, cnt + 1);
+            } else { // na wylosowanej pozycji nie ma zwierzęcia
                 genoms.put(animal.genom, 1);
             }
             app.mostPopularGenom = findPopularGenom();
@@ -69,13 +68,12 @@ public class Simulation implements Runnable{
         }
 
         // dodanie trawy
-        for (int i = 0 ; i < startGrass ; i++) {
+        for (int i = 0; i < startGrass; i++) {
             if (growVariant.canAddGrass()) {
                 Vector2d position = growVariant.addGrass();
                 grasses.put(position, new Grass(position, plusEnergy));
                 app.grassCnt++;
-            }
-            else { // wszystkie pola są już zajęte
+            } else { // wszystkie pola są już zajęte
                 break;
             }
         }
@@ -96,8 +94,7 @@ public class Simulation implements Runnable{
     private void putAnimalOnField(Animal animal, Vector2d position) { // postawienie zwierzęcia na danym polu
         if (animalsOnField.containsKey(position)) { // jakieś zwierzę już tam stoi
             animalsOnField.get(position).animalsArray.add(animal);
-        }
-        else { // nie ma tam żadnego zwierzęcia
+        } else { // nie ma tam żadnego zwierzęcia
             animalsOnField.put(position, new Field());
             animalsOnField.get(position).animalsArray.add(animal);
         }
@@ -119,8 +116,7 @@ public class Simulation implements Runnable{
         if (animalsOnField.containsKey(position)) {
             app.freeFieldCnt--;
             return animalsOnField.get(position).getStrongestAnimal();
-        }
-        else if (grasses.containsKey(position)){
+        } else if (grasses.containsKey(position)) {
             app.freeFieldCnt--;
             return grasses.get(position);
         }
@@ -142,13 +138,13 @@ public class Simulation implements Runnable{
     private Object multiplication(Animal parent1, Animal parent2) { // rozmnażanie
         if (parent1.energy >= energyToMultiplication && parent2.energy >= energyToMultiplication) { // rodzice mają wystarczająco dużo energii
             int totalEnergy = parent1.energy + parent2.energy;
-            int genesFromP1Cnt = (int) (genomSize*parent1.energy/totalEnergy);
+            int genesFromP1Cnt = (int) (genomSize * parent1.energy / totalEnergy);
             int genesFromP2Cnt = genomSize - genesFromP1Cnt;
-            int side1 = (int) (Math.random()*2);
-            Animal child = new Animal(parent1.position, 2*lostEnergy, genomSize, mutationVariant, nextGenVariant, minMutation,
+            int side1 = (int) (Math.random() * 2);
+            Animal child = new Animal(parent1.position, 2 * lostEnergy, genomSize, mutationVariant, nextGenVariant, minMutation,
                     maxMutation, energyToMultiplication, lostEnergy, mapVariant, this);
             child.copyGenes(parent1, side1, genesFromP1Cnt); // skopiowanie genów od rodziców
-            child.copyGenes(parent2, (side1 + 1)%2, genesFromP2Cnt);
+            child.copyGenes(parent2, (side1 + 1) % 2, genesFromP2Cnt);
             child.mutation(); // mutacja
             parent1.energy -= lostEnergy;
             parent2.energy -= lostEnergy;
@@ -252,9 +248,8 @@ public class Simulation implements Runnable{
                         app.animalCnt++;
                         if (genoms.containsKey(child.genom)) {
                             int cnt = genoms.remove(child.genom);
-                            genoms.put(child.genom, cnt+1);
-                        }
-                        else {
+                            genoms.put(child.genom, cnt + 1);
+                        } else {
                             genoms.put(child.genom, 0);
                         }
                         app.mostPopularGenom = findPopularGenom();
@@ -272,13 +267,12 @@ public class Simulation implements Runnable{
             addNewbornToFields(newborns);
 
             // rośnięcie traw
-            for (int i = 0 ; i < grownGrass ; i++) {
+            for (int i = 0; i < grownGrass; i++) {
                 if (growVariant.canAddGrass()) {
                     Vector2d position = growVariant.addGrass();
                     grasses.put(position, new Grass(position, plusEnergy));
                     app.grassCnt++;
-                }
-                else {
+                } else {
                     break;
                 }
             }

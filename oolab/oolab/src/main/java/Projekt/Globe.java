@@ -15,12 +15,11 @@ public class Globe extends AbstractMap {
         if (newPosition.follows(new Vector2d(0, 0)) && newPosition.precedes(new Vector2d(width - 1, height - 1))) {
             return newPosition; // pozycja znajduje się na mapie
         }
-        int x = (newPosition.x + width)%width;
+        int x = (newPosition.x + width) % width;
         int y;
         if (newPosition.y >= 0 && newPosition.y < height) { // zwierzę przechodzi na drugą stronę świata
             y = newPosition.y;
-        }
-        else { // zwierzę odbija się bieguna
+        } else { // zwierzę odbija się bieguna
             y = animal.position.y;
             animal.oppositeOrient();
         }

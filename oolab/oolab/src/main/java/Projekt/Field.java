@@ -23,18 +23,14 @@ public class Field {
             }
             if (a1.energy > a2.energy) {
                 return 1;
-            }
-            else if (a1.energy < a2.energy) {
+            } else if (a1.energy < a2.energy) {
                 return -1;
-            }
-            else {
+            } else {
                 if (a1.age > a2.age) {
                     return 1;
-                }
-                else if (a1.age < a2.age) {
+                } else if (a1.age < a2.age) {
                     return -1;
-                }
-                else {
+                } else {
                     return a1.childNumber - a2.childNumber;
                 }
             }

@@ -1,4 +1,4 @@
-package agh.ics.oop;
+package agh.ics.oop; // duży ten pakiet
 
 public abstract class AbstarctGrowingGrass {
     protected int width;
@@ -10,6 +10,7 @@ public abstract class AbstarctGrowingGrass {
     }
 
     public abstract Vector2d grownGrass();
+
     protected abstract void deleteGrass(Vector2d position);
 
 }

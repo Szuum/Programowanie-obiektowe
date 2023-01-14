@@ -7,6 +7,7 @@ public class Vector2d {
         this.x = x;
         this.y = y;
     }
+
     public final int x;
     public final int y;
 
@@ -46,11 +47,9 @@ public class Vector2d {
     public boolean equals(Object other) {
         if (this == other) {
             return true;
-        }
-        else if (!(other instanceof Vector2d)) {
+        } else if (!(other instanceof Vector2d)) {
             return false;
-        }
-        else {
+        } else {
             return this.x == ((Vector2d) other).x && this.y == ((Vector2d) other).y;
         }
     }

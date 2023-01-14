@@ -1,4 +1,4 @@
-//package agh.ics.oop;
+//package agh.ics.oop; // ten plik wydaje się nieużywany
 //
 //import java.util.LinkedList;
 //import java.util.SortedSet;

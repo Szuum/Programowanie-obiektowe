@@ -15,8 +15,8 @@ public class ToxicCorpses implements IGrowVariant {
         this.width = width;
         this.height = height;
         this.plusEnegry = plusEnegry;
-        for (int x = 0 ; x < width ; x++) { // dodawanie pól do wolnych pozycji
-            for (int y = 0 ; y < height ; y++) {
+        for (int x = 0; x < width; x++) { // dodawanie pól do wolnych pozycji
+            for (int y = 0; y < height; y++) {
                 GrassField grassField = new GrassField(new Vector2d(x, y));
                 freePosition.add(grassField);
             }
@@ -31,15 +31,14 @@ public class ToxicCorpses implements IGrowVariant {
     @Override
     public Vector2d addGrass() { // dodanie trawy
         sortArray();
-        int rand = (int) (Math.random()*10);
-        int size1 = (int) (freePosition.size()*0.8);
+        int rand = (int) (Math.random() * 10);
+        int size1 = (int) (freePosition.size() * 0.8);
         int size2 = freePosition.size() - size1;
         int idx;
         if (rand < 8) { // pole preferowane
-            idx = (int) (Math.random()*size1);
-        }
-        else { // pole niepreferowane
-            idx = freePosition.size() - 1 - (int) (Math.random()*size2);
+            idx = (int) (Math.random() * size1);
+        } else { // pole niepreferowane
+            idx = freePosition.size() - 1 - (int) (Math.random() * size2);
         }
         GrassField grassField = freePosition.remove(idx);
         occupiedPosition.put(grassField.position, grassField);
@@ -61,8 +60,7 @@ public class ToxicCorpses implements IGrowVariant {
     public void animalDead(Vector2d position) { // zwierzę umarło na danej pozycji
         if (occupiedPosition.containsKey(position)) { // na tej pozycji rośnie trawa
             occupiedPosition.get(position).deadAnimal++;
-        }
-        else {
+        } else {
             for (GrassField grassField : freePosition) { // na tej pozycji nie ma trawy
                 if (grassField.position.equals(position)) {
                     grassField.deadAnimal++;

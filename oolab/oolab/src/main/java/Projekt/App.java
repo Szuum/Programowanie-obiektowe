@@ -12,6 +12,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
 import java.io.FileInputStream;
 
 import java.io.FileNotFoundException;
@@ -161,32 +162,28 @@ public class App extends Application {
                 String choosenMapVariant = (String) chooseMapVariant.getValue();
                 if (choosenMapVariant == "Hell Portal") {
                     mapVariant = new HellPortal(width, height);
-                }
-                else {
+                } else {
                     mapVariant = new Globe(width, height);
                 }
 
                 String choosenGrassVariant = (String) chooseGrassVariant.getValue();
                 if (choosenGrassVariant == "Forested Equator") {
                     growVariant = new ForestedEquator(width, height, plusEnergy);
-                }
-                else {
+                } else {
                     growVariant = new ToxicCorpses(width, height, plusEnergy);
                 }
 
                 String choosenMutationVariant = (String) chooseMapVariant.getValue();
                 if (choosenMutationVariant == "Ranndom Gen") {
                     mutationVariant = new RandomGen();
-                }
-                else {
+                } else {
                     mutationVariant = new SlightCorrection();
                 }
 
                 String choosenNextGenVariant = (String) chooseNextGenVariant.getValue();
                 if (choosenNextGenVariant == "Normal Order") {
                     nextGenVariant = new NormalOrder();
-                }
-                else {
+                } else {
                     nextGenVariant = new RandomOrder();
                 }
 
@@ -218,9 +215,9 @@ public class App extends Application {
     }
 
     protected void updateScene() { // zaktualizowanie mapy i statystyk
-        freeFieldCnt = width*height;
-        for (int x = 0 ; x < width ; x++) {
-            for (int y = height - 1 ; y >= 0 ; y--) {
+        freeFieldCnt = width * height;
+        for (int x = 0; x < width; x++) {
+            for (int y = height - 1; y >= 0; y--) {
                 IMapElement element = engine.objectAt(new Vector2d(x, y));
                 if (element != null) {
                     try {
@@ -242,7 +239,7 @@ public class App extends Application {
         for (int i = 0; i < width; i++) {
             gridPane.getColumnConstraints().add(new ColumnConstraints(40));
         }
-        for (int i = 0; i < height; i++){
+        for (int i = 0; i < height; i++) {
             gridPane.getRowConstraints().add(new RowConstraints(40));
         }
 
@@ -264,18 +261,18 @@ public class App extends Application {
         if (deadAnimal == 0) {
             return "-";
         }
-        return Double.toString(totalLife/deadAnimal);
+        return Double.toString(totalLife / deadAnimal);
     }
 
     private String updateAVGEnergy() {
         if (animalCnt == 0) {
             return "-";
         }
-        return Double.toString(totalEnergy/animalCnt);
+        return Double.toString(totalEnergy / animalCnt);
     }
 
     protected void mapChanged() {
-        Platform.runLater(()->{
+        Platform.runLater(() -> {
             gridPane.getChildren().clear();
             gridPane.getRowConstraints().clear();
             gridPane.getColumnConstraints().clear();

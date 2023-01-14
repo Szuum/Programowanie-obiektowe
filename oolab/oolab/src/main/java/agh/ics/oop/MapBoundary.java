@@ -2,16 +2,14 @@ package agh.ics.oop;
 
 import java.util.*;
 
-public class MapBoundary implements IPositionChangeObserver{
+public class MapBoundary implements IPositionChangeObserver {
 
     private SortedSet<Vector2d> XSort = new TreeSet<>((v1, v2) -> {
         if (v1.x > v2.x) {
             return 1;
-        }
-        else if (v1.x < v2.x) {
+        } else if (v1.x < v2.x) {
             return -1;
-        }
-        else {
+        } else {
             return v1.y - v2.y;
         }
     });
@@ -19,11 +17,9 @@ public class MapBoundary implements IPositionChangeObserver{
     private SortedSet<Vector2d> YSort = new TreeSet<>((v1, v2) -> {
         if (v1.y > v2.y) {
             return 1;
-        }
-        else if (v1.y < v2.y) {
+        } else if (v1.y < v2.y) {
             return -1;
-        }
-        else {
+        } else {
             return v1.x - v2.x;
         }
     });

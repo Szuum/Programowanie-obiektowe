@@ -3,7 +3,7 @@ package agh.ics.oop;
 import java.util.HashMap;
 import java.util.Set;
 
-public class HellPortal extends AbstractMap{
+public class HellPortal extends AbstractMap {
 
     @Override
     public Vector2d move(Map map, Animal animal, Vector2d newPosition) {
@@ -14,9 +14,8 @@ public class HellPortal extends AbstractMap{
         int x = (int) (Math.random() * (map.width + 1));
         int y = (int) (Math.random() * (map.height + 1));
         if (animal.energy <= map.lostEnergy) {
-            map.sumOfEnergy -= animal.energy - 1;
-        }
-        else {
+            map.sumOfEnergy -= animal.energy - 1; // czy HellPortal powinien się tym zajmować?
+        } else {
             map.sumOfEnergy -= map.lostEnergy;
         }
         animal.energy -= map.lostEnergy;

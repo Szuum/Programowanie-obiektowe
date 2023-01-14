@@ -7,10 +7,10 @@ import java.util.Set;
 public class Animal {
 
     private MapDirection orient;
-    protected Vector2d position;
-    protected Map map;
-    protected int energy;
-    protected int genes[];
+    protected Vector2d position; // czemu to wszystko jest protected, skoro z Animal nic nie dziedziczy?
+    protected Map map; // final?
+    protected int energy; // czemu to nie jest prywatne?
+    protected int genes[]; // przydałaby się osobna klasa na genom
     private int activeGenIdx;
     protected int eatenGrass = 0;
     protected int numbereOfChildren = 0;
@@ -22,8 +22,8 @@ public class Animal {
         this.position = position;
         this.map = map;
         this.energy = energy;
-        int startOrient = (int) (Math.random()*8);
-        orient = switch (startOrient) {
+        int startOrient = (int) (Math.random() * 8);
+        orient = switch (startOrient) { // MapDirection.values()
             case 0 -> MapDirection.NORTH;
             case 1 -> MapDirection.NORTHEAST;
             case 2 -> MapDirection.EAST;
@@ -34,15 +34,15 @@ public class Animal {
             default -> MapDirection.NORTHWEST; // case 7
         };
         genes = new int[genomSize];
-        for (int i = 0 ; i < genomSize ; i++) {
-            int gen = (int) (Math.random()*8);
+        for (int i = 0; i < genomSize; i++) {
+            int gen = (int) (Math.random() * 8);
             genes[i] = gen;
         }
-        activeGenIdx = (int) (Math.random()*(genomSize + 1));
+        activeGenIdx = (int) (Math.random() * (genomSize + 1));
     }
 
     private void changeOrient() {
-        for (int i = 0 ; i < genes[activeGenIdx] ; i++) {
+        for (int i = 0; i < genes[activeGenIdx]; i++) { // można by dodać metodę turn(n) do MapDirection
             orient = orient.next();
         }
     }
@@ -50,14 +50,14 @@ public class Animal {
     protected void move() {
         changeOrient();
         Vector2d oldPosition = this.position;
-        Vector2d newPosition =  map.move(this, position.add(orient.toUnitVector()));
+        Vector2d newPosition = map.move(this, position.add(orient.toUnitVector()));
         if (!newPosition.equals(oldPosition)) {
             this.position = newPosition;
             map.positionChanged(oldPosition, this);
         }
     }
 
-    protected void changeDirection() {
+    protected void changeDirection() { // lepiej przenieść do MapDirection (np. jako opposite)
         orient = switch (this.orient) {
             case NORTH -> MapDirection.SOUTH;
             case NORTHEAST -> MapDirection.SOUTHWEST;
@@ -68,13 +68,13 @@ public class Animal {
         };
     }
 
-    protected void mutation(Mutation mutationVariant, int numberOfMutation) {
+    protected void mutation(Mutation mutationVariant, int numberOfMutation) { // mutate
         ArrayList<Integer> notChangedGenes = new ArrayList<>();
-        for (int i = 0 ; i < genes.length ; i++) {
+        for (int i = 0; i < genes.length; i++) {
             notChangedGenes.add(i);
         }
-        for (int i = 0 ; i < numberOfMutation ; i++) {
-            int idx = (int) (Math.random()*(notChangedGenes.size() + 1));
+        for (int i = 0; i < numberOfMutation; i++) {
+            int idx = (int) (Math.random() * (notChangedGenes.size() + 1));
             idx = notChangedGenes.get(idx);
             int newGen = mutationVariant.newGen(genes[idx]);
             genes[idx] = newGen;
@@ -83,7 +83,7 @@ public class Animal {
     }
 
 
-//    public Animal(IWorldMap map) {
+    //    public Animal(IWorldMap map) { // po to mamy gita, żeby móc bez obaw usuwać kod
 //        this.map=map;
 //    }
 //
@@ -91,7 +91,7 @@ public class Animal {
 //        this.map=map;
 //        this.position = initialPosition;
 //    }
-    public String toString() {
+    public String toString() { // czy to jest używane?
         return switch (this.orient) {
             case NORTH -> "N";
             case EAST -> "E";

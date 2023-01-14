@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 
 
 public class Simulation extends Application {
-//    SimulationEngine engine;
+    //    SimulationEngine engine;
     Thread engineThread;
     private int width = 5;
     private int height = 5;
@@ -70,16 +70,14 @@ public class Simulation extends Application {
         gridPane.getRowConstraints().clear();
         gridPane.getColumnConstraints().clear();
         gridPane.setGridLinesVisible(true);
-        for (int x = 0 ; x < width ; x++) {
-            for (int y = height - 1 ; y >= 0 ; y--) {
+        for (int x = 0; x < width; x++) {
+            for (int y = height - 1; y >= 0; y--) {
                 String napis;
                 if (map.objectAt(new Vector2d(x, y)) instanceof Animal) {
                     napis = "Z";
-                }
-                else if (map.objectAt(new Vector2d(x, y)) instanceof Grass) {
+                } else if (map.objectAt(new Vector2d(x, y)) instanceof Grass) {
                     napis = "T";
-                }
-                else {
+                } else {
                     napis = "";
                 }
                 Label label = new Label(napis);
@@ -90,10 +88,11 @@ public class Simulation extends Application {
         for (int i = 0; i < width; i++) {
             gridPane.getColumnConstraints().add(new ColumnConstraints(20));
         }
-        for (int i = 0; i < height; i++){
+        for (int i = 0; i < height; i++) {
             gridPane.getRowConstraints().add(new RowConstraints(20));
         }
     }
+
     protected void mapChanged() {
         Platform.runLater(() -> updateMap());
     }

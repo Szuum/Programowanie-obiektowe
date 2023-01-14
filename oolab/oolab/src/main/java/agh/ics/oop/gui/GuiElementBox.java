@@ -24,15 +24,14 @@ public class GuiElementBox {
             Label label = new Label();
             if (element instanceof Animal) {
                 label = new Label("Z" + element.getPosition().toString());
-            }
-            else {
+            } else {
                 label = new Label("Trawa");
             }
 
             VBox vbox = new VBox(imageView, label);
             vbox.setAlignment(Pos.CENTER);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // to nie jest dobra obsługa wyjątku
         }
     }
 

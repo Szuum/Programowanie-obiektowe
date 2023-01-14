@@ -2,7 +2,7 @@ package Projekt;
 
 import java.util.ArrayList;
 
-public class Animal implements IMapElement{
+public class Animal implements IMapElement {
     protected Vector2d position;
     private MapDirection orient = MapDirection.NORTH;
     protected int energy;
@@ -37,43 +37,43 @@ public class Animal implements IMapElement{
         this.engine = engine;
         genom = new int[genomSize];
         createGenom();
-        activeGenIdx = (int) (Math.random()*genomSize);
-        int orientIdx = (int) (Math.random()*8);
+        activeGenIdx = (int) (Math.random() * genomSize);
+        int orientIdx = (int) (Math.random() * 8);
         orient = orient.getDirection(orientIdx);
     }
 
     protected void copyGenes(Animal parent, int side, int number) { //kopiowanie genów od rodzica
         if (side == 0) {
             if (number >= 0) System.arraycopy(parent.genom, 0, genom, 0, number);
-        }
-        else {
-            for (int i = 0 ; i < number ; i++) {
+        } else {
+            for (int i = 0; i < number; i++) {
                 genom[genomSize - i - 1] = parent.genom[genomSize - i - 1];
             }
         }
     }
 
     protected void mutation() { // mutacja genów
-        int numberOfMutation = (int) (Math.random()*(maxMutation - minMutation)) + minMutation;
+        int numberOfMutation = (int) (Math.random() * (maxMutation - minMutation)) + minMutation;
         ArrayList<Integer> changedGenes = new ArrayList<>();
-        for (int i = 0 ; i < numberOfMutation ; i++) {
-            int genIdx = (int) (Math.random()*genomSize);
+        for (int i = 0; i < numberOfMutation; i++) {
+            int genIdx = (int) (Math.random() * genomSize);
             while (changedGenes.contains(genIdx)) {
-                genIdx = (int) (Math.random()*genomSize);
+                genIdx = (int) (Math.random() * genomSize);
             }
             int newGen = mutationVariant.newGen(genom[genIdx]);
             genom[genIdx] = newGen;
             changedGenes.add(genIdx);
         }
     }
+
     private void createGenom() { // stworzenie genomu dla nowego zwierzęcia
-        for (int i = 0 ; i < genomSize ; i++) {
-            genom[i] = (int) (Math.random()*8);
+        for (int i = 0; i < genomSize; i++) {
+            genom[i] = (int) (Math.random() * 8);
         }
     }
 
     private void changeOrient() { // obrót zwierzęcia
-        for (int i = 0 ; i < genom[activeGenIdx] ; i++) {
+        for (int i = 0; i < genom[activeGenIdx]; i++) {
             orient = orient.next();
         }
     }

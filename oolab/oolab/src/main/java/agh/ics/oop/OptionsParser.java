@@ -2,11 +2,11 @@ package agh.ics.oop;
 
 import java.util.Arrays;
 
-public class OptionsParser {
+public class OptionsParser { // to jest potrzebne?
     public MoveDirection[] parse(String[] data) {
         MoveDirection[] direction = new MoveDirection[data.length];
         int wrong_data = 0;
-        for (int i = 0 ; i < data.length ; i++) {
+        for (int i = 0; i < data.length; i++) {
             String argument = data[i];
             switch (argument) {
                 case "f", "forward" -> direction[i - wrong_data] = MoveDirection.FORWARD;

@@ -6,9 +6,9 @@ import javafx.application.Application;
 
 public class World {
 
-    public static Direction[] convert(String[] dane, Direction[] directions) {
+    public static Direction[] convert(String[] dane, Direction[] directions) { // czy to jest używane?
         int wrong_case = 0;
-        for (int i=0 ; i<dane.length ; i++) {
+        for (int i = 0; i < dane.length; i++) {
             String argument = dane[i];
             switch (argument) {
                 case "f":
@@ -30,8 +30,8 @@ public class World {
         return Arrays.copyOfRange(directions, 0, directions.length - wrong_case);
     }
 
-    static void run(Direction directions[]) {
-        for (int i=0; i<directions.length; i++) {
+    static void run(Direction directions[]) { // jw.
+        for (int i = 0; i < directions.length; i++) {
             Direction argument = directions[i];
             switch (argument) {
                 case FORWARD:
@@ -49,6 +49,7 @@ public class World {
             }
         }
     }
+
     public static void main(String[] args) {
 
 //        try {

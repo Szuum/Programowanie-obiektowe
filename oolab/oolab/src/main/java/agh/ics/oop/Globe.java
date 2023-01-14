@@ -16,13 +16,11 @@ public class Globe extends AbstractMap {
             return oldPosition;
         }
         if (newPosition.y < 0) {
-            return new Vector2d((newPosition.x + map.width)%map.width, 0);
-        }
-        else if (newPosition.y > map.height) {
-            return new Vector2d((newPosition.x + map.width)%map.width, map.height);
-        }
-        else {
-            return new Vector2d((newPosition.x + map.width)%map.width, newPosition.y);
+            return new Vector2d((newPosition.x + map.width) % map.width, 0);
+        } else if (newPosition.y > map.height) {
+            return new Vector2d((newPosition.x + map.width) % map.width, map.height);
+        } else {
+            return new Vector2d((newPosition.x + map.width) % map.width, newPosition.y);
         }
     }
 

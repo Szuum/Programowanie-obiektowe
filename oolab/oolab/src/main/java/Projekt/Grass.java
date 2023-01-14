@@ -1,8 +1,9 @@
 package Projekt;
 
-public class Grass implements IMapElement{
+public class Grass implements IMapElement {
     protected final Vector2d position;
     protected final int plusEnergy;
+
     public Grass(Vector2d position, int plusEnergy) {
         this.position = position;
         this.plusEnergy = plusEnergy;
